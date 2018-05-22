@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>JavaScript read and write a file</title>
+</head>
+<body>
+    <h1>Select a file to read:</h1>
+    <p>First, pick a file, for example a text file with any text in it.</p>
+	<input type="file" id="myFile">
+	<p>Then click Read button to read the file's content.</p>
+    <button onclick="loadFileAsText()">Read</button><br />
+	<h1>Content of loaded file</h1>
+	<textarea id="inputTextToSave"></textarea> <br />
+	<p>You can modify above text and save it using below button.</p>
+	<h1>Save the file</h1>
+	<button onclick="savefile()">Save</button>
+	<p id="dlink">Click save button to generate download link.</p>
+	<script>
+	function loadFileAsText(){
+	  var myFile = document.getElementById("myFile").files[0];
+ 
+	  var fileReader = new FileReader();
+	  fileReader.onload = function(fileLoadedEvent){
+		  var textFromFileLoaded = fileLoadedEvent.target.result;
+		  document.getElementById("inputTextToSave").value = textFromFileLoaded;
+	  };
+ 
+	  fileReader.readAsText(myFile, "UTF-8");
+	}
+	function savefile(){
+		var content = document.getElementById("inputTextToSave").value;
+		uriContent = "data:application/octet-stream," + encodeURIComponent(content);
+		document.getElementById("dlink").innerHTML = "<a href=" + uriContent + " download=\"savedfile.txt\">Here is the download link</a>";
+	}
+	</script>
+</body>   
+</html>
